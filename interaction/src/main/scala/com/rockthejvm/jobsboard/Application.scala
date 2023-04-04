@@ -19,6 +19,7 @@ import pureconfig.ConfigSource
 import com.comcast.ip4s.Host
 import com.comcast.ip4s.Port
 import pureconfig.error.ConfigReaderException
+import com.rockthejvm.jobsboard.http.HttpApi
 
 object Application extends IOApp.Simple:
 
@@ -27,7 +28,7 @@ object Application extends IOApp.Simple:
       .default[IO]
       .withHost(host)
       .withPort(port)
-      .withHttpApp(HealthRoutes[IO].routes.orNotFound)
+      .withHttpApp(HttpApi[IO].endpoints.orNotFound)
       .build
       .use(_ => IO.println("Server ready") *> IO.never)
 
